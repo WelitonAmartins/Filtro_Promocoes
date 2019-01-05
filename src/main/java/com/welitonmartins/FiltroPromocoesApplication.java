@@ -21,8 +21,10 @@ public class FiltroPromocoesApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		SocialMetaTag tag = service.getOpenGraphByUrl("https://www.udemy.com/spring-boot-mvc-com-thymeleaf/");
+		SocialMetaTag tag = service.getSocialMetaTagByUrl("https://www.pichau.com.br/processador-amd-ryzen-5-2400g-quatro-nucleos-cache-6mb-3-6ghz-am4-yd2400c5fbbox");
 		System.out.println(tag.toString());
+		
+	
 	}
 	
 	
