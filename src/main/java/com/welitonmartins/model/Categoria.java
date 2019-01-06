@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name =" CATEGORIA")
+@Table(name =" categorias")
 public class Categoria implements Serializable{
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
