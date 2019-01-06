@@ -23,7 +23,7 @@ $("#form-add-promo").submit(function (evt) {
 		},
 		
 		error: function(xhr) {
-			console.log("> error: " xhr.responseText);
+			console.log("> error: ", xhr.responseText);
 			$("#alert").addClass("alert alert-danger").text("Não foi possivel salvar esta promoção.")
 		}
 	})

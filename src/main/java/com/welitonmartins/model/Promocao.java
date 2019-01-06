@@ -32,7 +32,7 @@ public class Promocao implements Serializable{
 	@Column(name ="LINK_PROMOCAO", nullable = false)
 	private String linkPromocao;
 	
-	@Column(name="SITE", nullable = false)
+	@Column(name="SITE_PROMOCAO", nullable = false)
 	private String site;
 	
 	@Column(name="DESCRICAO")
