@@ -10,9 +10,10 @@ $("#linkPromocao").on('change', function(){
 			cache: false,
 			beforeSend: function() {
 				$("#alert").removeClass("alert alert-danger").text("");
-				$("#title").val("");
+				$("#titulo").val("");
 				$("#site").text("");
 				$("#linkImagem").attr("src", "");
+				$("#loader-img").addClass("loader");
 			},
 			success: function( data ) {
 				console.log(data);
@@ -23,10 +24,15 @@ $("#linkPromocao").on('change', function(){
 			statusCode: {
 				404: function() {
 					$("#alert").addClass("alert alert-danger").text("Nenhuma informação pode ser recuperada dessa url.");
+					$("#linkImagem").attr("src", "/images/promo-dark.png");
 				}
 			},
 			error: function() {
 				$("#alert").addClass("alert alert-danger").text("Ops ... Algo deu errado, tente novamente mais tarde.");
+				$("#linkImagem").attr("src", "/images/promo-dark.png");
+			},
+			complete: function(){
+				$("#loader-img").removeClass("loader");
 			}
 		});
 	}
