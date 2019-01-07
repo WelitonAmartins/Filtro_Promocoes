@@ -30,7 +30,7 @@ public class SocialMetaTagService {
 		return null;
 	}
 
-	private SocialMetaTag getTwitterByUrl(String url) {
+	private SocialMetaTag getTwitterByUrl(String url) { 
 		SocialMetaTag tag = new SocialMetaTag();
 		try {
 			Document doc = Jsoup.connect(url)
