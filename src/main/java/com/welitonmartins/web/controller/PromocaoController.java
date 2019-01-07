@@ -59,7 +59,7 @@ public class PromocaoController {
 	public List<Categoria> getCategoria() {
 		
 		return categoriaRepository.findAll();
-	}
+	} 
 	
 	@GetMapping("/add")
 	public String AbrirCadastro() {
