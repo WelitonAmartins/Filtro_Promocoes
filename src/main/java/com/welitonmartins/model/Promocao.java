@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -26,9 +28,11 @@ public class Promocao implements Serializable{
 	private Long id;
 	
 	//nullable = false-> impade que insira valor null nessa coluna
+	@NotBlank(message = "Um título é requirido")
 	@Column(name ="TITULO", nullable = false)
 	private String titulo;
 	
+	@NotBlank(message = "O link da promoção é requirido")
 	@Column(name ="LINK_PROMOCAO", nullable = false)
 	private String linkPromocao;
 	
@@ -41,6 +45,7 @@ public class Promocao implements Serializable{
 	@Column(name="LINK_IMAGEM", nullable= false)
 	private String linkImagem;
 	
+	@NotNull(message = "O preço é requirido")
 	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00") // informando para o banco que essa informçaõ é do tipo moeda
 	@Column(name="PRECO_PROMOCAO", nullable = false)
 	private BigDecimal preco;
@@ -51,6 +56,7 @@ public class Promocao implements Serializable{
 	@Column(name= "DATA_CADASTRO", nullable = false)
 	private LocalDateTime dtCadastro;
 	
+	@NotNull(message = "Uma categoria é requirida")
 	@ManyToOne
 	@JoinColumn(name = "CATEGORIA_FK")// especificando o nome da chave estrageira que está fazendo esse relacionamento
 	private Categoria categoria;
