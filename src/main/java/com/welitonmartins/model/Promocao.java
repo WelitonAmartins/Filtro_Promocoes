@@ -51,7 +51,7 @@ public class Promocao implements Serializable{
 	private BigDecimal preco;
 	
 	@Column(name = "TOTAL_LIKES")
-	private int links;
+	private int likes;
 	
 	@Column(name= "DATA_CADASTRO", nullable = false)
 	private LocalDateTime dtCadastro;
@@ -126,12 +126,12 @@ public class Promocao implements Serializable{
 		this.preco = preco;
 	}
 
-	public int getLinks() {
-		return links;
+	public int getLikes() {
+		return likes;
 	}
 
-	public void setLinks(int links) {
-		this.links = links;
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 
 	public LocalDateTime getDtCadastro() {
@@ -145,7 +145,7 @@ public class Promocao implements Serializable{
 	@Override
 	public String toString() {
 		return "Promocao [id=" + id + ", titulo=" + titulo + ", linkPromocao=" + linkPromocao + ", site=" + site
-				+ ", descricao=" + descricao + ", linkImagem=" + linkImagem + ", preco=" + preco + ", links=" + links
+				+ ", descricao=" + descricao + ", linkImagem=" + linkImagem + ", preco=" + preco + ", likes=" + likes
 				+ ", dtCadastro=" + dtCadastro + ", categoria=" + categoria + "]";
 	}
 }
