@@ -14,7 +14,9 @@ import com.welitonmartins.model.Promocao;
 
 public interface PromocaoRepository extends JpaRepository<Promocao, Long>{
 	
-	@Query("select p from Promocao p where p.site like :site")
+	final static String BuscarPorSite = "select p from Promocao p where p.site like :site";
+	
+	@Query(value = "BuscarPorSite", nativeQuery = true)
 	Page<Promocao> findBySite(@Param("site") String site, Pageable pageable);
 	
 	@Query("select distinct p.site from Promocao p where p.site like %:site%")

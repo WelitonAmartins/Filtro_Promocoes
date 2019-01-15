@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ import com.welitonmartins.model.Categoria;
 import com.welitonmartins.model.Promocao;
 import com.welitonmartins.repository.CategoriaRepository;
 import com.welitonmartins.repository.PromocaoRepository;
+import com.welitonmartins.service.PromocaoDataTablesService;
 
 @Controller
 @RequestMapping("/promocao")
@@ -40,6 +42,19 @@ public class PromocaoController {
 	
 	@Autowired
 	private PromocaoRepository promocaoRepository;
+	
+	
+	//======================= DATATABLE =======================================
+	@GetMapping("/tabela")
+	public String showTabela( ) {
+		return "promo-datatables";
+	}
+	
+	@GetMapping("/datatables/server")
+	public ResponseEntity<?> datatables(HttpServletRequest request) {
+		Map<String, Object> data = new PromocaoDataTablesService().execute(promocaoRepository, request);
+		return ResponseEntity.ok(data);
+	}
 	
 	// ==================== LISTA OFERTAS ============================================
 	@GetMapping("/list")
