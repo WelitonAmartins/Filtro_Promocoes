@@ -1,5 +1,6 @@
 package com.welitonmartins.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -12,23 +13,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.welitonmartins.model.Promocao;
 
-public interface PromocaoRepository extends JpaRepository<Promocao, Long>{
+
+
+public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
 	
-	final static String BuscarPorSite = "select p from Promocao p where p.site like :site";
+	@Query("select p from Promocao p where p.preco = :preco")
+	Page<Promocao> findByPreco(@Param("preco") BigDecimal preco, Pageable pageable);
 	
-	@Query(value = "BuscarPorSite", nativeQuery = true)
+	@Query("select p from Promocao p where p.titulo like %:search% "
+			+ "or p.site like %:search% "
+			+ "or p.categoria.titulo like %:search%")
+	Page<Promocao> findByTituloOrSiteOrCategoria(@Param("search") String search, Pageable pageable);
+	
+	@Query("select p from Promocao p where p.site like :site")
 	Page<Promocao> findBySite(@Param("site") String site, Pageable pageable);
 	
 	@Query("select distinct p.site from Promocao p where p.site like %:site%")
-	List<String> findSiteByTermo(@Param("site") String site);
-	
+	List<String> findSitesByTermo(@Param("site") String site);
+
 	@Transactional(readOnly = false)
 	@Modifying
 	@Query("update Promocao p set p.likes = p.likes + 1 where p.id = :id")
 	void updateSomarLikes(@Param("id") Long id);
 	
-	
 	@Query("select p.likes from Promocao p where p.id = :id")
 	int findLikesById(@Param("id") Long id);
-
 }
+ 

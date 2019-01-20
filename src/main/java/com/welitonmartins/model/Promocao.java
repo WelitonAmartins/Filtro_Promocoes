@@ -4,14 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -20,55 +13,44 @@ import org.springframework.format.annotation.NumberFormat.Style;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "PROMOCOES")
-public class Promocao implements Serializable{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "promocoes")
+public class Promocao implements Serializable {
+
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	//nullable = false-> impade que insira valor null nessa coluna
-	@NotBlank(message = "Um título é requirido")
-	@Column(name ="TITULO", nullable = false)
+	@NotBlank(message = "Um título é requerido")
+	@Column(name = "titulo", nullable = false)
 	private String titulo;
 	
-	@NotBlank(message = "O link da promoção é requirido")
-	@Column(name ="LINK_PROMOCAO", nullable = false)
+	@NotBlank(message = "O link da promoção é requerido")
+	@Column(name = "link_promocao", nullable = false)
 	private String linkPromocao;
 	
-	@Column(name="SITE_PROMOCAO", nullable = false)
+	@Column(name = "site_promocao", nullable = false)
 	private String site;
 	
-	@Column(name="DESCRICAO")
+	@Column(name = "descricao")
 	private String descricao;
 	
-	@Column(name="LINK_IMAGEM", nullable= false)
+	@Column(name = "link_imagem", nullable = false)
 	private String linkImagem;
 	
-	@NotNull(message = "O preço é requirido")
-	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00") // informando para o banco que essa informçaõ é do tipo moeda
-	@Column(name="PRECO_PROMOCAO", nullable = false)
+	@NotNull(message = "O preço é requerido")
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
+	@Column(name = "preco_promocao", nullable = false)
 	private BigDecimal preco;
 	
-	@Column(name = "TOTAL_LIKES")
+	@Column(name = "total_likes")
 	private int likes;
 	
-	@Column(name= "DATA_CADASTRO", nullable = false)
+	@Column(name = "data_cadastro", nullable = false)
 	private LocalDateTime dtCadastro;
 	
-	@NotNull(message = "Uma categoria é requirida")
+	@NotNull(message = "Uma categoria é requerida")
 	@ManyToOne
-	@JoinColumn(name = "CATEGORIA_FK")// especificando o nome da chave estrageira que está fazendo esse relacionamento
+	@JoinColumn(name = "categoria_fk")
 	private Categoria categoria;
-
-	
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
 
 	public Long getId() {
 		return id;
@@ -142,10 +124,18 @@ public class Promocao implements Serializable{
 		this.dtCadastro = dtCadastro;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	@Override
 	public String toString() {
 		return "Promocao [id=" + id + ", titulo=" + titulo + ", linkPromocao=" + linkPromocao + ", site=" + site
 				+ ", descricao=" + descricao + ", linkImagem=" + linkImagem + ", preco=" + preco + ", likes=" + likes
 				+ ", dtCadastro=" + dtCadastro + ", categoria=" + categoria + "]";
-	}
+	}	
 }
