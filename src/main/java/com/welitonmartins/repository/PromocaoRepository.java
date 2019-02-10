@@ -1,7 +1,9 @@
 package com.welitonmartins.repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,13 @@ import com.welitonmartins.model.Promocao;
 
 
 public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
+	
+	@Query("select count(p.id) as count, max(p.dtCadastro) as lastDate"
+			+ "from Promocao p where p.dtCadastro > :data")
+	Map<String, Object> totalAndUltimaPromocaoByDataCadastro(@Param("data") LocalDateTime data);
+	
+	@Query("select p.dtCadastro from promocao p")
+	Page<LocalDateTime> findUltimoDataDePromocao(Pageable pegeable);
 	
 	@Query("select p from Promocao p where p.preco = :preco")
 	Page<Promocao> findByPreco(@Param("preco") BigDecimal preco, Pageable pageable);
