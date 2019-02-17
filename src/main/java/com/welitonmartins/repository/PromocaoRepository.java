@@ -11,20 +11,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.welitonmartins.model.Promocao;
 
 
-
+@Repository
 public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
 	
-	@Query("select count(p.id) as count, max(p.dtCadastro) as lastDate"
+
+	@Query("select count(p.id) as count, max(p.dtCadastro) as lastDate "
 			+ "from Promocao p where p.dtCadastro > :data")
 	Map<String, Object> totalAndUltimaPromocaoByDataCadastro(@Param("data") LocalDateTime data);
 	
-	@Query("select p.dtCadastro from promocao p")
-	Page<LocalDateTime> findUltimoDataDePromocao(Pageable pegeable);
+	@Query("select p.dtCadastro from Promocao p")
+	Page<LocalDateTime> findUltimaDataDePromocao(Pageable pageable);
 	
 	@Query("select p from Promocao p where p.preco = :preco")
 	Page<Promocao> findByPreco(@Param("preco") BigDecimal preco, Pageable pageable);

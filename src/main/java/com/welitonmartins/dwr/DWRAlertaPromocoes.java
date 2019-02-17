@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
-
 import com.welitonmartins.repository.PromocaoRepository;
 
 @Component
@@ -30,7 +29,7 @@ public class DWRAlertaPromocoes {
 
 	private LocalDateTime getDtCadastroByUltimaPromocao() {
 		PageRequest pageRequest = PageRequest.of(0, 1, Direction.DESC, "dtCadastro");
-		return promocaoRepository.findUltimoDataDePromocao(pageRequest).getContent().get(0);
+		return promocaoRepository.findUltimaDataDePromocao(pageRequest).getContent().get(0);
 	}
 
 	@RemoteMethod
